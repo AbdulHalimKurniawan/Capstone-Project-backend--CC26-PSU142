@@ -13,18 +13,16 @@ return new class extends Migration
     {
         Schema::create('influencers', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique(); // Kunci utama biar gak dobel
             $table->string('full_name')->nullable();
-            $table->text('profile_picture')->nullable();
-            $table->text('bio')->nullable();
             $table->string('niche')->nullable();
-            $table->bigInteger('followers')->default(0);
-            $table->decimal('engagement_rate', 5, 2)->default(0);
-
-            // 🚨 INI KUNCI ASYNC KITA: Tandai data belum dianalisis AI
+            $table->integer('influencer_age')->nullable();
+            $table->string('influencer_location')->nullable();
             $table->boolean('is_analyzed')->default(false);
-            $table->text('ai_style_tags')->nullable(); // Nanti diisi sama Python
-
+            $table->json('embedding_vector')->nullable();
+            $table->integer('audience_min_age')->nullable();
+            $table->integer('audience_max_age')->nullable();
+            $table->string('audience_gender')->nullable();
+            $table->string('audience_location')->nullable();
             $table->timestamp('scraped_at')->nullable();
             $table->timestamps();
         });

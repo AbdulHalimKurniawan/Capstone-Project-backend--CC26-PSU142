@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('influencer_id')->constrained()->onDelete('cascade');
-            $table->string('post_url')->unique(); // Biar gak nyimpen post yang sama berkali-kali
-            $table->string('type')->nullable(); // Image / Reel
+            $table->foreignId('social_account_id')->constrained('social_accounts')->onDelete('cascade');
+            $table->string('post_url')->unique();
+            $table->string('type')->nullable(); // 'Video', 'Image', 'Carousel', 'Reel'
             $table->integer('likes')->default(0);
             $table->integer('comments')->default(0);
+            $table->integer('views')->default(0);
             $table->text('image_url')->nullable();
             $table->text('caption')->nullable();
             $table->timestamps();
